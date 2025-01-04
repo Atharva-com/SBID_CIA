@@ -149,7 +149,7 @@ const ServiceCardBack = ({ isFlipped, hoveredStep, setHoveredStep, index, servic
                                                         >
                                                             {stepIndex + 1}
                                                         </motion.div>
-                                                        <span className={`font-ui text-gray-100`}>
+                                                        <span className={`  text-gray-100`}>
                                                             {step}
                                                         </span>
                                                     </div>
@@ -174,7 +174,7 @@ const ServiceCardBack = ({ isFlipped, hoveredStep, setHoveredStep, index, servic
                                                     <span className="p-2 bg-yellow-400 rounded-lg text-gray-900">
                                                         {benefit.icon}
                                                     </span>
-                                                    <span className={`font-ui text-sm text-gray-300`}>
+                                                    <span className={`  text-sm text-gray-300`}>
                                                         {benefit.text}
                                                     </span>
                                                 </div>

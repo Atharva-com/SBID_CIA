@@ -22,7 +22,7 @@ const HeroBg = () => {
         <>
 
             {/* hero background image */}
-            <div className='absolute top-0 left-0 bottom-0 right-0 pointer-events-none' area-hidden="true">
+            <div className='absolute top-0 left-0 bottom-0 right-0 pointer-events-none opacity-80' area-hidden="true">
                 <Image
                     src={heroBackground}
                     alt="About Background"
@@ -30,7 +30,7 @@ const HeroBg = () => {
                     objectFit="cover"
                     objectPosition='left center'
                     quality={100}
-                    className='bg-opacity-90'
+                    className='bg-opacity-80'
                 />
 
             </div>

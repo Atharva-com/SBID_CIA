@@ -11,6 +11,7 @@ import Image from 'next/image';
 import ProjectCard from './ProjectCard';
 import { projects } from './ProjectArray';
 import ProjectPreview from './ProjectPreview';
+import ProjectShowcase from './ProjectShowcase';
 
 const ProjectsSection = () => {
     const [hoveredId, setHoveredId] = useState(null);
@@ -42,7 +43,7 @@ const ProjectsSection = () => {
                 scrollTrigger: {
                     trigger: textRef.current,
                     start: "top center",
-                    end: "+=30%",
+                    end: "+=40%",
                     scrub: true,
                     toggleActions: "play none none reverse",
                     pin: true,
@@ -121,7 +122,8 @@ const ProjectsSection = () => {
 
             <motion.h1
                 // variants={textAnimation}
-                className="absolute block md:hidden top-72 left-[-0.15em] text-[18vw] font-extrabold leading-[0.72] text-white opacity-10 pointer-events-none z-0
+                // ref={textRef}
+                className="absolute block md:hidden top-64 left-[-0.15em] text-[20vw] font-extrabold leading-[0.72] text-white opacity-10 pointer-events-none z-0
                  uppercase"
                 style={{
                     fontFamily: "korolev-condensed, sans-serif",
@@ -195,60 +197,61 @@ const ProjectsSection = () => {
                 </motion.div>
 
                 {/* Masonry Grid */}
+                {/* <ProjectShowcase projects={filteredProjects} onProjectClick={handleProjectClick} /> */}
                 <AnimatePresence>
-                        <motion.div
+                    <motion.div
 
-                            layout
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full px-2 md:px-0 md:w-[125%]"
-                        >
+                        layout
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full px-2 md:px-0 md:w-[115%] my-8 md:my-20"
+                    >
 
-                            {filteredProjects.map((project) => (
-                                <ProjectCard
+                        {filteredProjects.map((project) => (
+                            <ProjectCard
 
-                                    key={project.id}
-                                    project={project}
-                                    onClick={() => handleProjectClick(project)}
-                                />
-                            ))}
+                                key={project.id}
+                                project={project}
+                                onClick={() => handleProjectClick(project)}
+                            />
+                        ))}
 
-                        </motion.div>
+                    </motion.div>
                 </AnimatePresence>
 
                 {/* View All Button */}
                 <motion.button
-                            onClick={handleExploreClick}
-                            whileHover={{
-                              scale: 1.05,
-                
+                    onClick={handleExploreClick}
+                    whileHover={{
+                        scale: 1.05,
+
+                    }}
+                    style={{
+                        background: "linear-gradient(90deg, #FFD700, #FFC107, #FFB300)",
+                        boxShadow: "0px 0px 15px rgba(255, 213, 0, 0.7)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative overflow-hidden px-8 md:px-16 md:py-4 py-3 text-sm md:text-base font-medium bg-yellow-400 text-gray-900 rounded-full shadow-lg hover:bg-gradient-to-r hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300"
+                >
+                    <span className="relative z-10 flex items-center justify-center gap-2 font-sans">
+                        View More Projects
+                        <motion.span
+                            initial={{ x: -10 }}
+                            whileInView={{ x: [0, 5, 0] }}
+                            transition={{
+                                repeat: Infinity,
+                                repeatType: "loop",
+                                duration: 1.5,
                             }}
-                            style={{
-                              background: "linear-gradient(90deg, #FFD700, #FFC107, #FFB300)",
-                              boxShadow: "0px 0px 15px rgba(255, 213, 0, 0.7)",
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                            className="relative overflow-hidden px-8 md:px-16 md:py-4 py-3 text-sm md:text-base font-medium bg-yellow-400 text-gray-900 rounded-full shadow-lg hover:bg-gradient-to-r hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300"
-                          >
-                            <span className="relative z-10 flex items-center justify-center gap-2 font-sans">
-                              View More Projects
-                              <motion.span
-                                initial={{ x: -10 }}
-                                whileInView={{ x: [0, 5, 0] }}
-                                transition={{
-                                  repeat: Infinity,
-                                  repeatType: "loop",
-                                  duration: 1.5,
-                                }}
-                              >
-                                <ArrowRight className="w-4 h-4" />
-                              </motion.span>
-                            </span>
-                
-                            {/* Ripple Effect */}
-                            <span
-                              aria-hidden="true"
-                              className="absolute inset-0 bg-yellow-500 opacity-20 rounded-full transform scale-0 group-hover:scale-150 transition-all duration-700 ease-out"
-                            ></span>
-                          </motion.button>
+                        >
+                            <ArrowRight className="w-4 h-4" />
+                        </motion.span>
+                    </span>
+
+                    {/* Ripple Effect */}
+                    <span
+                        aria-hidden="true"
+                        className="absolute inset-0 bg-yellow-500 opacity-20 rounded-full transform scale-0 group-hover:scale-150 transition-all duration-700 ease-out"
+                    ></span>
+                </motion.button>
 
             </div>
 

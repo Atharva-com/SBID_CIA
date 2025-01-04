@@ -156,8 +156,11 @@ const HeroContent = () => {
                 </motion.a>
               ))}
             </motion.div>
+
           </div>
+
         </div>
+        
       </motion.div>
 
     </>

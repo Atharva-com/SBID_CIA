@@ -40,6 +40,7 @@ const ServicesSection = () => {
         scrollTrigger: {
           trigger: textRef.current,
           start: "top center",
+          end: "+=40%",
           scrub: true,
           toggleActions: "play none none reverse",
           pin: true,
@@ -59,7 +60,7 @@ const ServicesSection = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top center",
-          end: "center center",
+          end: "bottom center",
           scrub: 1
         }
       }
@@ -69,10 +70,10 @@ const ServicesSection = () => {
 
 
   return (
-    <div ref={sectionRef} className="relative py-20 md:py-20 lg:py-40 lg:mx-auto h-auto w-full">
+    <div ref={sectionRef} className="relative md:px-0 px-4 py-20 md:py-20 lg:py-40 lg:mx-auto h-auto w-full">
 
       {/* serives Background */}
-      <div className='absolute top-0 left-0 bottom-0 right-0 pointer-events-none -z-0 h-full' area-hidden="true">
+      <div className='absolute top-0 left-0 bottom-0 right-0 pointer-events-none -z-0 h-full md:block hidden' area-hidden="true">
 
         <Image
           src={serviceBg}
@@ -97,7 +98,7 @@ const ServicesSection = () => {
 
       <motion.h1
         // variants={textAnimation}
-        className="absolute block md:hidden top-72 left-[-0.15em] text-[18vw] font-extrabold leading-[0.72] text-white opacity-10 pointer-events-none z-0 uppercase"
+        className="absolute block md:hidden top-64 left-[-0.15em] text-[20vw] font-extrabold leading-[0.72] text-white opacity-10 pointer-events-none z-0 uppercase"
         style={{
           fontFamily: "korolev-condensed, sans-serif",
           transform: "translate3d(0px, 27px, 0px)",
@@ -133,7 +134,7 @@ const ServicesSection = () => {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-12 my-8 md:my-20">
           {services.map((service, index) => {
             return (
               <ServicesCard key={index} service={service} index={index} />

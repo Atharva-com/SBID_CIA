@@ -57,7 +57,16 @@ const ServicesCard = ({ service, index }: { service: Service; index: number }) =
 
     return (
 
-        <motion.div key={index} className='service-card relative h-[500px] w-full perspective-1000 '>
+        <motion.div 
+        animate={{
+            y: [0, -2, 0],
+            transition: {
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "loop",
+            },
+        }}
+        key={index} className='service-card relative h-[500px] w-full perspective-1000 '>
 
             <motion.div
                 style={{

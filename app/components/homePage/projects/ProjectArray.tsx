@@ -13,6 +13,7 @@ export const projects = [
       status: "Completed",
       size: "5,000 sqft"
     },
+
     {
       id: "2",
       title: "Urban Apartment Complex",
@@ -27,6 +28,7 @@ export const projects = [
       status: "Completed",
       size: "25,000 sqft"
     },
+
     {
       id: "3",
       title: "Corporate Office",
@@ -41,6 +43,7 @@ export const projects = [
       status: "In Progress",
       size: "15,000 sqft"
     },
+
     {
       id: "4",
       title: "Luxury Hotel",
@@ -55,6 +58,7 @@ export const projects = [
       status: "Planned",
       size: "50,000 sqft"
     },
+
     {
       id: "5",
       title: "Eco-Friendly Park",
@@ -69,6 +73,7 @@ export const projects = [
       status: "Completed",
       size: "15 acres"
     },
+
     {
       id: "6",
       title: "Tech Hub Campus",
@@ -83,6 +88,7 @@ export const projects = [
       status: "In Progress",
       size: "40,000 sqft"
     },
+
     {
       id: "7",
       title: "Waterfront Residential Complex",
@@ -97,6 +103,7 @@ export const projects = [
       status: "Planned",
       size: "30,000 sqft"
     },
+
     {
       id: "8",
       title: "Modern Industrial Park",
@@ -111,6 +118,7 @@ export const projects = [
       status: "Completed",
       size: "100 acres"
     },
+
     {
       id: "9",
       title: "Cultural Arts Center",
@@ -125,6 +133,7 @@ export const projects = [
       status: "In Progress",
       size: "20,000 sqft"
     },
+
     {
       id: "10",
       title: "High-Tech Warehouse",

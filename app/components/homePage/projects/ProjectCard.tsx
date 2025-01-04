@@ -25,14 +25,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
             <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.6, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 whileHover={{ scale: 1.05, rotate: -2 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.8 }}
 
-                className={`relative group rounded-lg overflow-hidden shadow-sm cursor-pointer w-[100%] h-full md:h-[400px]`}
+                className={`relative group rounded-lg overflow-hidden shadow-sm cursor-pointer w-[100%] h-full md:h-[350px]`}
             >
-                <motion.div className='relative w-full h-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 hover:border-orange-500 hover:border-2'>
+                <motion.div 
+                animate={{
+                    y: [0, -2, 0],
+                    transition: {
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatType: "loop",
+                    },
+                }}
+                className='relative w-full h-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 hover:border-orange-500 hover:border-2'>
 
                     <motion.div 
                     whileHover={{ scale: 1.05 }}
@@ -45,18 +54,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
                             // height={1000}
                             src={project.images[0]}
                             alt={project.title}
-                            className="w-[100%] h-[400px] bg-no-repeat transform transition-transform duration-700"
+                            className="w-[100%] h-[350px] bg-no-repeat transform transition-transform duration-700"
                         />
 
                         {/* Overlay */}
                         <motion.div
-                            className="absolute inset-0 hover:bg-gradient-to-b hover:from-transparent hover:to-black/90 h-full md:h-[400px]"
+                            className="absolute inset-0 hover:bg-gradient-to-b hover:from-transparent hover:to-black/90 h-full md:h-[350px]"
                         >
                             <motion.div
                                 // initial={{ y: 30, opacity: 0 }}
                                 // whileHover={{ y: 0, opacity: 1, rotate: -2 }}
                                 // transition={{ duration: 0.6, delay: 0.2 }}
-                                className={`relative z-10 h-full w-full p-12 flex flex-col gap-2 translate-y-60 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:-rotate-2 transition-transform duration-700 delay-200 ${parseInt(project.id) % 3 === 1 ? "items-end" : parseInt(project.id) % 3 === 0 ?  "items-start" : "items-start" }  justify-end`}
+                                className={`relative z-10 h-full w-full p-12 flex flex-col gap-2 translate-y-60 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:-rotate-2 transition-transform duration-700 delay-200 ${parseInt(project.id) % 3 === 1 ? "md:items-end md:text-end" : parseInt(project.id) % 3 === 0 ?  "md:items-start md:text-start" : "md:items-start" } text-start items-start  justify-end`}
                             >
                                 <motion.span 
                                 initial={{ y: 20, opacity: 0 }}
@@ -72,7 +81,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
                                     whileInView={{ y: 0, opacity: 1 }}
                                     whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 0.4 }}
-                                    className="text-3xl font-mono tracking-wider font-normal text-gray-100 mb-4 text-end">
+                                    className="text-2xl font-mono tracking-wider font-normal text-gray-100 mb-4 max-w-xs">
                                     {project.title}
                                 </motion.h3>
 
