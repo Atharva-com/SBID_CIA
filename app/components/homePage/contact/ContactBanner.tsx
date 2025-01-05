@@ -93,7 +93,7 @@ const ContactBanner = () => {
                             </p>
                             
                             {/* Email & Website */}
-                            <div className="space-y-4 bg-gray-800 p-4 rounded-lg">
+                            <div className="space-y-4 bg-[#15151580] border border-[#727272] hover:border-orange-500 p-4 rounded-lg">
 
                                 <motion.a
                                     href="mailto:info@shreebhargava.com"
@@ -138,7 +138,7 @@ const ContactBanner = () => {
                             </p>
 
                             {/* Location & Office Hours */}
-                            <div className="space-y-4 bg-gray-800 p-4 rounded-lg">
+                            <div className="space-y-4 bg-[#15151580] border border-[#727272] hover:border-orange-500 p-4 rounded-lg">
                                 <motion.div
                                     className="flex items-center gap-4"
                                     whileHover={{ x: 5 }}
@@ -200,7 +200,7 @@ const ContactBanner = () => {
                             </p>
 
                             {/* Primary Contact */}
-                            <div className="space-y-4 bg-gray-800 p-4 rounded-lg">
+                            <div className="space-y-4 bg-[#15151580] border border-[#727272] hover:border-orange-500 p-4 rounded-lg">
 
                                 <motion.a
                                     href="tel:+919876543210"
