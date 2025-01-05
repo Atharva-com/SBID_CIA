@@ -3,10 +3,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Menu, ChevronRight } from 'lucide-react';
+import { root } from 'postcss';
+import { useRouter } from 'next/navigation';
 
 const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const router = useRouter();
 
   const menuItems = [
     {
@@ -37,9 +40,9 @@ const NavigationBar = () => {
         { title: 'CONSULTING', href: '/services/consulting' }
       ]
     },
-    { title: 'Home', href: '/home' },
+    { title: 'Home', href: '/' },
     { title: 'FIRM', href: '/firm' },
-    { title: 'Career', href: '/Career' },
+    { title: 'Career', href: '/career' },
     { title: 'Gallery', href: '/gallery' },
     { title: 'NEWS', href: '/news' },
     { title: 'CONTACT', href: '/contact' }
@@ -110,14 +113,14 @@ const NavigationBar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-navy-900 z-40 overflow-y-auto bg-black/40 bg-opacity-50"
+            className="fixed inset-0 bg-navy-900 z-40 overflow-y-auto bg-black/80 overflow-hidden scroll-hidden"
           >
             <motion.div
               variants={menuVariants}
               initial="closed"
               animate="open"
               exit="closed"
-              className="min-h-screen flex flex-col justify-center px-12 lg:px-24 py-6"
+              className="min-h-screen flex flex-col justify-center px-12 lg:px-24 py-6 overflow-hidden"
             >
               <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr,1fr] gap-12 text-white">
                 {/* Main Navigation */}
@@ -138,6 +141,7 @@ const NavigationBar = () => {
                             } else {
                               setIsOpen(false);
                               // Handle navigation here
+                              router.push(item.href);
                             }
                           }}
                         >

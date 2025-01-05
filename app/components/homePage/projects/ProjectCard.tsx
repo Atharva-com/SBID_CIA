@@ -27,7 +27,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
                 layout
                 initial={{ opacity: 0, scale: 0.6, y: 20 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                whileHover={{ scale: 1.05, rotate: -2 }}
+                whileHover={{ scale: 1.2, zIndex: 10 }}
                 transition={{ duration: 0.8 }}
 
                 className={`relative group rounded-lg overflow-hidden shadow-sm cursor-pointer w-[100%] h-full md:h-[350px]`}

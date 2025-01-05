@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
 import Image from "next/image";
-import textBg from "../../../public/background/main/9471030_4183828.jpg";
+import textBg from "../../../public/background/servicesBg.png";
 import { ChevronDown } from "lucide-react";
 
 const CompanyName = () => {
@@ -35,14 +35,6 @@ const CompanyName = () => {
                         ease: "power3.out",
                     }
                 );
-
-                gsap.to(text.chars, {
-                    textShadow: "0px 0px 6px rgb(107, 114, 128)",
-                    repeat: -1,
-                    yoyo: true,
-                    duration: 1.5,
-                    ease: "power1.inOut",
-                });
             });
 
 
@@ -70,9 +62,6 @@ const CompanyName = () => {
         >
 
             <div className="absolute top-0 left-0 inset-0"
-                style={{
-                    backgroundImage: "radial-gradient(circle, hsla(0, 1%, 71%, 1) 0%, hsla(0, 7%, 28%, 1) 90%)"
-                }}
                 area-hidden="true"
             >
                 <Image
@@ -104,13 +93,13 @@ const CompanyName = () => {
                     {/* Company Name */}
                     <motion.h1
                         ref={headingRef}
-                        className="text-4xl md:text-5xl font-semibold mb-6 text-gray-800 tracking-wider font-outfit text-center"
+                        className="text-4xl md:text-5xl font-semibold mb-6 text-gray-100 tracking-wider font-outfit text-center"
                         style={{
                             textShadow: "0px 0px 6px rgb(107, 114, 128)",
                             lineHeight: "1.2"
                         }}
                     >
-                        Shree Bhargava Infrastructure Development <br /> pvt. ltd.
+                        Shree Bhargava Infrastructure Development.
                     </motion.h1>
 
                     {/* Subtitle */}
@@ -118,16 +107,16 @@ const CompanyName = () => {
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 2 }}
-                        className="text-2xl md:text-3xl text-gray-700 mb-8 font-mono flex items-center justify-center">
+                        className="text-2xl md:text-3xl text-gray-200 mb-8 font-mono flex items-center justify-center">
                         Creative Indian Architects
 
-                        <sup className="text-base md:text-lg text-gray-700 ml-1 font-semibold">
+                        <sup className="text-base md:text-lg text-gray-200 ml-1 font-semibold">
                             ™
                         </sup>
                     </motion.p>
 
                     <motion.p
-                        className="text-xl mt-8 text-gray-700 font-mono"
+                        className="text-xl mt-8 text-gray-300 font-mono"
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.5, delay: 2.5 }}
@@ -141,8 +130,8 @@ const CompanyName = () => {
                         animate={{ y: [0, 10, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                     >
-                        <span className="font-mono text-gray-800 relative right-8">Scroll Down</span>
-                        <ChevronDown className="w-8 h-8 text-gray-800" />
+                        <span className="font-mono text-gray-300 relative right-8">Scroll Down</span>
+                        <ChevronDown className="w-8 h-8 text-gray-300" />
                     </motion.div>
 
                 </motion.div>

@@ -6,10 +6,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   MapPin, Phone, Mail, Clock, Send,
-  Linkedin, Instagram, Facebook,
   CheckCircle, XCircle, AlertCircle
 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { sendWelcomeEmail } from '../../layout/SendEmail';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+
+const socialLinks = [
+  { url: "https://www.facebook.com", icon: FaFacebookF, delay: 0.2 },
+  { url: "https://www.instagram.com", icon: FaInstagram, delay: 0.4 },
+  { url: "https://www.linkedin.com", icon: FaLinkedinIn, delay: 0.6 },
+  { url: "https://www.twitter.com", icon: FaTwitter, delay: 0.8 },
+];
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -93,7 +101,13 @@ const ContactSection = () => {
     if (validateForm()) {
       try {
         // Simulated API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const response = await sendWelcomeEmail(formData.email);
+        console.log(response);
+        if (!response) {
+          setSubmitStatus('error');
+          setTimeout(() => setSubmitStatus(null), 5000);
+          return;
+        }
         setSubmitStatus('success');
         setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
         setTimeout(() => setSubmitStatus(null), 5000);
@@ -119,14 +133,71 @@ const ContactSection = () => {
     }
   };
 
+  const textAnimation = {
+    hidden: { opacity: 0, y: 40, Scale: 0.8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+      },
+    }
+  };
+
 
   return (
     <section className="relative py-20 md:py-20 lg:py-40 h-auto overflow-hidden w-full">
 
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+
+        <motion.div
+          animate={{
+            scale: [1, 1.5, 1],
+            rotate: [0, -90, 0]
+          }}
+          transition={{ duration: 15, repeat: Infinity }}
+          className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"
+        />
+
+
+      </div>
+
+      {/* Enhanced Animated Background */}
+      <div className="absolute inset-0 opacity-10">
+
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            rotate: [0, -90, 0],
+            x: [100, -100, 100],
+            y: [50, -50, 50]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"
+        />
+
+
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            rotate: [45, -45, 45],
+            x: [-50, 50, -50],
+            y: [0, 100, 0]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 left-1/2 w-72 h-72 bg-purple-500 rounded-full blur-3xl"
+        />
+
+      </div>
+
+
+
       <motion.h1
         // variants={textAnimation}
         ref={textRef}
-        className="absolute md:block hidden top-20 left-4 text-[11vw] font-extrabold leading-[1.2] text-white opacity-10 pointer-events-none z-0 uppercase"
+        className="absolute md:block hidden top-20 left-4 text-[11vw] font-extrabold leading-[1.2] text-white opacity-10 pointer-events-none z-[-1] uppercase"
         style={{
           fontFamily: "korolev-condensed, sans-serif",
           transform: "translate3d(0px, 27px, 0px)",
@@ -138,7 +209,7 @@ const ContactSection = () => {
       <motion.h1
         // variants={textAnimation}
         // ref={textRef}
-        className="absolute block md:hidden top-64 left-[-0.15em] text-[20vw] font-extrabold leading-[0.72] text-white opacity-10 pointer-events-none z-0
+        className="absolute block md:hidden top-64 left-[-0.15em] text-[20vw] font-extrabold leading-[1.2] text-white opacity-10 pointer-events-none z-[-1]
                        uppercase"
         style={{
           fontFamily: "korolev-condensed, sans-serif",
@@ -148,7 +219,7 @@ const ContactSection = () => {
         Let's connect
       </motion.h1>
 
-      <div className="container mx-auto px-6 flex flex-col items-center justify-center space-y-12 lg:space-y-20">
+      <div className="container mx-auto px-6 flex flex-col items-center justify-center space-y-12 lg:space-y-20 relative">
 
         {/* Notification */}
         <AnimatePresence>
@@ -223,7 +294,7 @@ const ContactSection = () => {
             className="lg:col-span-1"
           >
 
-            <div className="bg-[#15151580] border border-[#727272] rounded-xl p-8 shadow-lg h-full">
+            <div className="bg-gray-800/50 border border-[#727272] rounded-xl p-8 shadow-lg h-full">
 
               <h3 className="text-2xl font-semibold mb-6 font-outfit text-orange-500">Contact Information</h3>
 
@@ -292,26 +363,48 @@ const ContactSection = () => {
               {/* Social Icons */}
               <div className="mt-8 pt-8 border-t">
 
-                <h4 className="font-semibold text-orange-500 mb-4">Follow Us</h4>
+                <h4 className="font-semibold text-orange-500 mb-4 text-center">Follow Us</h4>
 
-                {/* Social Icons */}
-                <div className="flex space-x-4">
-                  {[
-                    { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn' },
-                    { icon: <Instagram className="w-5 h-5" />, label: 'Instagram' },
-                    { icon: <Facebook className="w-5 h-5" />, label: 'Facebook' }
-                  ].map((social, index) => (
+                {/* Social Media Icons */}
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={textAnimation}
+                  className="flex justify-center items-center gap-6"
+                >
+                  {socialLinks.map((social, index) => (
                     <motion.a
                       key={index}
-                      href="#"
-                      whileHover={{ scale: 1.1 }}
-                      className="bg-gray-100 p-3 rounded-full text-gray-600 hover:bg-orange-500 hover:text-white transition-colors"
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: social.delay }}
+                      className="text-gray-600 transition-all duration-300"
                     >
-                      {social.icon}
+                      <motion.div
+                        whileHover={{
+                          scale: 1.2,
+                          rotate: 10,
+                          boxShadow: "0px 5px 15px rgba(255, 165, 0, 0.5)",
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                        animate={{
+                          y: [0, -2, 0],
+                          transition: {
+                            duration: 2,
+                            repeat: Infinity,
+                            repeatType: "loop",
+                          },
+                        }}
+                        className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:bg-orange-500"
+                      >
+                        <social.icon className="w-6 h-6 text-gray-700 hover:text-white" />
+                      </motion.div>
                     </motion.a>
                   ))}
-
-                </div>
+                </motion.div>
 
               </div>
 
@@ -327,7 +420,7 @@ const ContactSection = () => {
             className="lg:col-span-2 h-full"
           >
 
-            <div className="bg-[#15151580] border border-[#727272] h-full rounded-xl p-8 shadow-lg">
+            <div className="bg-gray-800/50 border border-[#727272] h-full rounded-xl p-8 shadow-lg">
 
               <h3 className="text-2xl text-orange-500 font-outfit font-semibold mb-6">Send us a Message</h3>
 

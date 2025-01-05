@@ -70,3 +70,13 @@ body {
 .backface-hidden {
   backface-visibility: hidden;
 }
+
+.parallax {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}

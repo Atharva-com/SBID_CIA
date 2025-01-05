@@ -24,8 +24,6 @@ const Footer = () => {
   type SubscriptionStatus = 'idle' | 'loading' | 'success' | 'error';
   const [subscriptionStatus, setSubscriptionStatus] = useState<SubscriptionStatus>('idle');
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [currentProject, setCurrentProject] = useState(0);
-  const controls = useAnimation();
   const currentYear = new Date().getFullYear();
 
   const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,38 +48,6 @@ const Footer = () => {
     // Reset success message after 3 seconds
     setTimeout(() => setSubscriptionStatus('idle'), 3000);
   };
-
-  // Featured Projects Data
-  const featuredProjects = [
-    {
-      title: "Eco-Friendly Township",
-      location: "Mumbai",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dG93bnNoaXAlMjBjb25zdHJ1Y3Rpb258ZW58MHx8MHx8fDA%3D",
-      category: "Residential"
-    },
-    {
-      title: "Tech Innovation Hub",
-      location: "Bangalore",
-      image: "https://plus.unsplash.com/premium_photo-1683133686509-a84ea0c8de4e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHRvd25zaGlwJTIwY29uc3RydWN0aW9ufGVufDB8fDB8fHww",
-      category: "Commercial"
-    },
-    {
-      title: "Cultural Center",
-      location: "Delhi",
-      image: "https://images.unsplash.com/photo-1482731215275-a1f151646268?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHRvd25zaGlwJTIwY29uc3RydWN0aW9ufGVufDB8fDB8fHww",
-      category: "Cultural"
-    }
-  ];
-
-  // Auto-rotate projects
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentProject((prev) =>
-        prev === featuredProjects.length - 1 ? 0 : prev + 1
-      );
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Floating animation for elements
   const floatingAnimation = {
@@ -127,16 +93,9 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-900 text-gray-300 relative overflow-hidden">
+
       {/* Decorative Background Elements */}
-      {/* <div className="absolute inset-0 opacity-10">
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0]
-          }}
-          transition={{ duration: 20, repeat: Infinity }}
-          className="absolute top-0 left-0 w-64 h-64 bg-orange-500 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"
-        />
+      <div className="absolute inset-0 opacity-10">
         <motion.div 
           animate={{ 
             scale: [1, 1.5, 1],
@@ -145,19 +104,10 @@ const Footer = () => {
           transition={{ duration: 15, repeat: Infinity }}
           className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"
         />
-      </div> */}
+      </div>
+
       {/* Enhanced Animated Background */}
       <div className="absolute inset-0 opacity-10">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-            x: [-100, 100, -100],
-            y: [-50, 50, -50]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-0 left-0 w-64 h-64 bg-orange-500 rounded-full blur-3xl"
-        />
         <motion.div
           animate={{
             scale: [1.2, 1, 1.2],
@@ -179,78 +129,6 @@ const Footer = () => {
           className="absolute top-1/2 left-1/2 w-72 h-72 bg-purple-500 rounded-full blur-3xl"
         />
       </div>
-
-      {/* New Featured Projects Section */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="relative z-10 backdrop-blur-lg"
-      >
-        <div className="container mx-auto px-6 py-12">
-
-          <div className="relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentProject}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="flex flex-col md:flex-row items-center justify-center gap-8 h-[300px]"
-              >
-                <motion.img
-                  src={featuredProjects[currentProject].image}
-                  alt={featuredProjects[currentProject].title}
-                  className="w-full md:w-1/3 h-full rounded-lg shadow-xl"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <div className="md:w-1/3 h-full text-center md:text-left">
-                  <motion.h4
-                    className="text-2xl font-bold text-gray-400 font-outfit tracking-wide mb-2"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    {featuredProjects[currentProject].title}
-                  </motion.h4>
-                  <motion.p
-                    className="text-gray-500 font-inter mb-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    {featuredProjects[currentProject].location}
-                  </motion.p>
-                  <motion.span
-                    className="inline-block px-3 py-1 bg-orange-500/20 text-orange-500 rounded-full font-inter text-sm"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    {featuredProjects[currentProject].category}
-                  </motion.span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Navigation Dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              {featuredProjects.map((_, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => setCurrentProject(index)}
-                  className={`w-2 h-2 rounded-full ${currentProject === index ? 'bg-orange-500' : 'bg-gray-600'
-                    }`}
-                  whileHover={{ scale: 1.5 }}
-                  animate={currentProject === index ? { scale: [1, 1.2, 1] } : {}}
-                  transition={{ duration: 0.5, repeat: currentProject === index ? Infinity : 0 }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.div>
 
       <div className="container mx-auto px-6 pt-20 pb-8 relative z-10">
         {/* Newsletter Section */}
@@ -322,7 +200,7 @@ const Footer = () => {
               whileHover={{ scale: 1.05 }}
             >
               {/* <Building2 className="w-8 h-8 text-orange-500" /> */}
-              <h3 className="text-xl font-bold text-white font-outfit tracking-wider">Shree Bhargava Infrastrucutre Development pvt. ltd.</h3>
+              <h3 className="text-3xl font-normal text-white font-outfit tracking-wider">Shree Bhargava Infrastrucutre Development</h3>
             </motion.div>
             <p className="text-sm leading-relaxed font-inter text-gray-400">
               Creating architectural marvels that blend modern innovation with Indian heritage.
@@ -452,6 +330,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
                 <motion.a
+                animate={floatingAnimation}
                   key={index}
                   href="#"
                   whileHover={{
@@ -473,10 +352,10 @@ const Footer = () => {
               ))}
             </div>
             <motion.p
-              className="text-sm"
+              className="text-sm font-outfit tracking-wide"
               whileHover={{ scale: 1.02 }}
             >
-              © {currentYear} Shree Bhargava Infrastructure. All rights reserved.
+              © {currentYear} Shree Bhargava Infrastructure Development. All rights reserved.
             </motion.p>
           </div>
         </div>
