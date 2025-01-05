@@ -188,8 +188,13 @@ const AboutPage = () => {
                         </motion.div>
 
                         {/* Image Grid */}
-                        <div className="grid grid-cols-2 gap-4 relative">
+                        <motion.div 
+                        initial="hidden"
+                        whileInView="visible"
+                        variants={itemVariants}
+                        className="grid grid-cols-2 gap-4 relative">
                             <motion.img
+
                                 whileHover={{ scale: 1.05 }}
                                 src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8QWJvdXR8ZW58MHx8MHx8fDA%3D"
                                 alt="Office Space 1"
@@ -213,7 +218,7 @@ const AboutPage = () => {
                                 alt="Office Space 4"
                                 className="w-full h-48 object-cover rounded-lg shadow-md"
                             />
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </motion.div>
 
@@ -264,7 +269,11 @@ const AboutPage = () => {
 
                     <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
                         {/* Left Column */}
-                        <motion.div className="space-y-8">
+                        <motion.div 
+                        initial="hidden"
+                        whileInView="visible"
+                        variants={itemVariants}
+                        className="space-y-8">
                             <motion.img
                                 whileHover={{ scale: 1.03 }}
                                 src="https://images.unsplash.com/photo-1532103054090-3491f1a05d0d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fEFib3V0JTIwYXJjaGl0ZWN0dXJlJTIwb2ZmaWNlfGVufDB8fDB8fHww"
@@ -294,6 +303,9 @@ const AboutPage = () => {
                             </motion.p>
                             
                             <motion.img
+                            initial="hidden"
+                            whileInView="visible"
+                            variants={itemVariants}
                                 whileHover={{ scale: 1.03 }}
                                 src="https://plus.unsplash.com/premium_photo-1661958068511-94e74df3a799?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QWJvdXQlMjBhcmNoaXRlY3R1cmUlMjBvZmZpY2V8ZW58MHx8MHx8fDA%3D"
                                 alt="Workplace 2"
@@ -302,7 +314,11 @@ const AboutPage = () => {
                         </motion.div>
 
                         {/* Right Column */}
-                        <div className="space-y-8">
+                        <motion.div 
+                        initial="hidden"
+                        whileInView="visible"
+                        variants={itemVariants}
+                        className="space-y-8">
                             <motion.img
                                 whileHover={{ scale: 1.03 }}
                                 src="https://plus.unsplash.com/premium_photo-1670315264879-59cc6b15db5f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEFib3V0JTIwYXJjaGl0ZWN0dXJlJTIwb2ZmaWNlfGVufDB8fDB8fHww"
@@ -315,7 +331,7 @@ const AboutPage = () => {
                                 alt="Workplace 4"
                                 className="w-full h-64 object-cover rounded-lg shadow-lg"
                             />
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </motion.div>
 

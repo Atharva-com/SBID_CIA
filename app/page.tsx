@@ -8,6 +8,7 @@ import ServicesSection from "./components/homePage/services/Services";
 import ProjectsSection from "./components/homePage/projects/Projects";
 import AboutPage from "./components/homePage/about/About";
 import ContactBanner from "./components/homePage/contact/ContactBanner";
+import ContactSection from "./components/homePage/contact/ContactSection";
 
 export default function Home() {
   return (
@@ -24,6 +25,8 @@ export default function Home() {
       <AboutPage />
 
       <ContactBanner />
+
+      <ContactSection />
     </div>
 
   );

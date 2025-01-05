@@ -9,6 +9,7 @@ interface ServiceCardFrontProps {
         title: string;
         subTitle: string;
         features: string[];
+        description: string;
     };
     hoveredStep: number | null;
     index: number;
@@ -79,9 +80,9 @@ const ServicesCardFront: React.FC<ServiceCardFrontProps> = ({ handleFlip, servic
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4, duration: 0.6 }}
-                        className="text-yellow-500 text-center text-4xl font-semibold uppercase font-mono tracking-wide">
+                        className="text-yellow-500 text-center text-3xl font-semibold uppercase font-mono tracking-wide">
                         {service.title} <br />
-                        <span className='text-white text-3xl'>
+                        <span className='text-white text-2xl'>
                             {service.subTitle}
                         </span>
                     </motion.h3>
@@ -91,12 +92,16 @@ const ServicesCardFront: React.FC<ServiceCardFrontProps> = ({ handleFlip, servic
                                             {service.subTitle}
                                         </h4> */}
 
-                    {/* <p className="text-gray-400 font-ui text-center tracking-wider leading-relaxed mb-6">
+                    <motion.p 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6, duration: 0.6 }}
+                    className="text-gray-400 font-ui text-center tracking-wider leading-relaxed mb-6">
                                     {service.description}
-                                </p> */}
+                                </motion.p>
 
                     {/* Features */}
-                    <div className="space-y-3 mt-4">
+                    {/* <div className="space-y-3 mt-4">
                         {service.features.map((feature, featureIndex) => (
                             <motion.div
                                 key={featureIndex}
@@ -109,7 +114,7 @@ const ServicesCardFront: React.FC<ServiceCardFrontProps> = ({ handleFlip, servic
                                 <span className={`font-sans text-sm`}>{feature}</span>
                             </motion.div>
                         ))}
-                    </div>
+                    </div> */}
 
                     {/* Flip Button */}
                     <motion.button

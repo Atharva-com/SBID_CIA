@@ -37,7 +37,7 @@ const ServicesCard = ({ service, index }: { service: Service; index: number }) =
         // Cards stagger animation
         const cards = document.querySelectorAll('.service-card');
         gsap.fromTo(cards,
-            { opacity: 0, y: 60 },
+            { opacity: 0, y: 30 },
             {
                 opacity: 1,
                 y: 0,
@@ -46,7 +46,6 @@ const ServicesCard = ({ service, index }: { service: Service; index: number }) =
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top center",
-                    end: "center center",
                     scrub: 1
                 }
             }
@@ -66,7 +65,7 @@ const ServicesCard = ({ service, index }: { service: Service; index: number }) =
                 repeatType: "loop",
             },
         }}
-        key={index} className='service-card relative h-[500px] w-full perspective-1000 '>
+        key={index} className='service-card relative h-[450px] w-full perspective-1000 '>
 
             <motion.div
                 style={{

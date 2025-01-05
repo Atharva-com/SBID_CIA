@@ -66,9 +66,9 @@ const FullscreenCarousel = () => {
                         className="absolute inset-0"
                         style={{
                             maskImage:
-                                "radial-gradient(circle, rgba(0,0,0,1) -10%, rgba(0,0,0,0.2) 100%)",
+                                "radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0.2) 100%)",
                             WebkitMaskImage:
-                                "radial-gradient(circle, rgba(0,0,0,1) -10%, rgba(0,0,0,0.2) 100%)",
+                                "radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0.2) 100%)",
                         }}
                     >
                         <Image

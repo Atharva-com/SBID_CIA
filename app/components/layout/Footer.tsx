@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Facebook, 
-  Twitter, 
-  Instagram, 
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Twitter,
+  Instagram,
   Linkedin,
   ArrowUpRight,
   Building2,
@@ -17,6 +17,7 @@ import {
   XCircle,
   Loader2
 } from 'lucide-react';
+import { sendWelcomeEmail } from './SendEmail';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -27,19 +28,25 @@ const Footer = () => {
   const controls = useAnimation();
   const currentYear = new Date().getFullYear();
 
-
   const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !email.includes('@')) {
       setSubscriptionStatus('error');
       return;
     }
-    
+
     setSubscriptionStatus('loading');
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const response = await sendWelcomeEmail(email);
+    console.log(response);
+    if (!response) {
+      setSubscriptionStatus('error');
+      setTimeout(() => setSubscriptionStatus('idle'), 3000);
+      return;
+    }
     setSubscriptionStatus('success');
     setEmail('');
+
     // Reset success message after 3 seconds
     setTimeout(() => setSubscriptionStatus('idle'), 3000);
   };
@@ -69,7 +76,7 @@ const Footer = () => {
   // Auto-rotate projects
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentProject((prev) => 
+      setCurrentProject((prev) =>
         prev === featuredProjects.length - 1 ? 0 : prev + 1
       );
     }, 5000);
@@ -141,8 +148,8 @@ const Footer = () => {
       </div> */}
       {/* Enhanced Animated Background */}
       <div className="absolute inset-0 opacity-10">
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             scale: [1, 1.2, 1],
             rotate: [0, 90, 0],
             x: [-100, 100, -100],
@@ -151,8 +158,8 @@ const Footer = () => {
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-0 left-0 w-64 h-64 bg-orange-500 rounded-full blur-3xl"
         />
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             scale: [1.2, 1, 1.2],
             rotate: [0, -90, 0],
             x: [100, -100, 100],
@@ -161,8 +168,8 @@ const Footer = () => {
           transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
           className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"
         />
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             scale: [1, 1.3, 1],
             rotate: [45, -45, 45],
             x: [-50, 50, -50],
@@ -174,19 +181,13 @@ const Footer = () => {
       </div>
 
       {/* New Featured Projects Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="relative z-10 bg-gray-800/50 backdrop-blur-lg"
+        className="relative z-10 backdrop-blur-lg"
       >
         <div className="container mx-auto px-6 py-12">
-          <motion.h3 
-            animate={floatingAnimation}
-            className="text-2xl font-bold text-white text-center mb-8"
-          >
-            Featured Projects
-          </motion.h3>
-          
+
           <div className="relative">
             <AnimatePresence mode="wait">
               <motion.div
@@ -195,18 +196,18 @@ const Footer = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col md:flex-row items-center justify-center gap-8"
+                className="flex flex-col md:flex-row items-center justify-center gap-8 h-[300px]"
               >
                 <motion.img
                   src={featuredProjects[currentProject].image}
                   alt={featuredProjects[currentProject].title}
-                  className="w-full md:w-1/3 rounded-lg shadow-xl"
+                  className="w-full md:w-1/3 h-full rounded-lg shadow-xl"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 />
-                <div className="md:w-1/3 text-center md:text-left">
-                  <motion.h4 
-                    className="text-xl font-bold text-white mb-2"
+                <div className="md:w-1/3 h-full text-center md:text-left">
+                  <motion.h4
+                    className="text-2xl font-bold text-gray-400 font-outfit tracking-wide mb-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
@@ -214,7 +215,7 @@ const Footer = () => {
                     {featuredProjects[currentProject].title}
                   </motion.h4>
                   <motion.p
-                    className="text-gray-400 mb-4"
+                    className="text-gray-500 font-inter mb-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
@@ -222,7 +223,7 @@ const Footer = () => {
                     {featuredProjects[currentProject].location}
                   </motion.p>
                   <motion.span
-                    className="inline-block px-3 py-1 bg-orange-500/20 text-orange-500 rounded-full text-sm"
+                    className="inline-block px-3 py-1 bg-orange-500/20 text-orange-500 rounded-full font-inter text-sm"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
@@ -232,16 +233,15 @@ const Footer = () => {
                 </div>
               </motion.div>
             </AnimatePresence>
-            
+
             {/* Navigation Dots */}
             <div className="flex justify-center gap-2 mt-6">
               {featuredProjects.map((_, index) => (
                 <motion.button
                   key={index}
                   onClick={() => setCurrentProject(index)}
-                  className={`w-2 h-2 rounded-full ${
-                    currentProject === index ? 'bg-orange-500' : 'bg-gray-600'
-                  }`}
+                  className={`w-2 h-2 rounded-full ${currentProject === index ? 'bg-orange-500' : 'bg-gray-600'
+                    }`}
                   whileHover={{ scale: 1.5 }}
                   animate={currentProject === index ? { scale: [1, 1.2, 1] } : {}}
                   transition={{ duration: 0.5, repeat: currentProject === index ? Infinity : 0 }}
@@ -254,16 +254,16 @@ const Footer = () => {
 
       <div className="container mx-auto px-6 pt-20 pb-8 relative z-10">
         {/* Newsletter Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8 mb-16"
         >
           <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">Stay Updated with Our Latest Projects</h3>
-            <p className="text-gray-400 mb-8">Subscribe to our newsletter and receive updates about our latest architectural innovations and projects.</p>
-            
+            <h3 className="text-2xl font-bold text-white font-outfit tracking-wider mb-4">Stay Updated with Our Latest Projects</h3>
+            <p className="text-gray-400 font-inter mb-8">Subscribe to our newsletter and receive updates about our latest architectural innovations and projects.</p>
+
             <form onSubmit={handleSubscribe} className="relative">
               <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
                 <input
@@ -271,12 +271,12 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 px-6 py-3 rounded-full bg-gray-700 border border-gray-600 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none transition-all"
+                  className="flex-1 px-6 py-3 rounded-full font-inter bg-gray-700 border border-gray-600 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none transition-all"
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-medium inline-flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-3 rounded-full font-inter bg-orange-500 hover:bg-orange-600 text-white font-medium inline-flex items-center justify-center group disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={subscriptionStatus === 'loading'}
                 >
                   {subscriptionStatus === 'loading' ? (
@@ -289,7 +289,7 @@ const Footer = () => {
                   )}
                 </motion.button>
               </div>
-              
+
               {/* Status Message */}
               <AnimatePresence mode="wait">
                 {subscriptionStatus !== 'idle' && (
@@ -317,20 +317,20 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <motion.div 
+            <motion.div
               className="flex items-center space-x-2"
               whileHover={{ scale: 1.05 }}
             >
-              <Building2 className="w-8 h-8 text-orange-500" />
-              <h3 className="text-xl font-bold text-white">Shree Bhargava</h3>
+              {/* <Building2 className="w-8 h-8 text-orange-500" /> */}
+              <h3 className="text-xl font-bold text-white font-outfit tracking-wider">Shree Bhargava Infrastrucutre Development pvt. ltd.</h3>
             </motion.div>
-            <p className="text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed font-inter text-gray-400">
               Creating architectural marvels that blend modern innovation with Indian heritage.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full text-sm font-medium inline-flex items-center group"
+              className="bg-orange-500 hover:bg-orange-600 font-inter text-white px-6 py-2 rounded-full text-sm font-medium inline-flex items-center group"
             >
               Contact Us
               <ArrowUpRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -344,22 +344,22 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h4 className="text-white font-semibold mb-6">Services</h4>
+            <h4 className="text-white font-semibold mb-6 font-outfit tracking-wide">Services</h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link, index) => (
-                <motion.li 
+                <motion.li
                   key={index}
                   onHoverStart={() => setHoveredLink(`service-${index}`)}
                   onHoverEnd={() => setHoveredLink(null)}
                   className="relative cursor-pointer group"
                 >
-                  <motion.span 
-                    className="inline-block hover:text-orange-500 transition-colors"
+                  <motion.span
+                    className="inline-block font-inter text-gray-400 group-hover:text-orange-500 transition-colors"
                     whileHover={{ x: 5 }}
                   >
                     {link}
                   </motion.span>
-                  {hoveredLink === `service-${index}` && (
+                  {/* {hoveredLink === `service-${index}` && (
                     <motion.span
                       layoutId="highlight"
                       className="absolute -inset-x-4 -inset-y-2 bg-orange-500/10 rounded-lg z-0"
@@ -367,7 +367,7 @@ const Footer = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     />
-                  )}
+                  )} */}
                 </motion.li>
               ))}
             </ul>
@@ -380,22 +380,22 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <h4 className="text-white font-semibold mb-6">Company</h4>
+            <h4 className="text-white font-semibold mb-6 font-outfit tracking-wide">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link, index) => (
-                <motion.li 
+                <motion.li
                   key={index}
                   onHoverStart={() => setHoveredLink(`company-${index}`)}
                   onHoverEnd={() => setHoveredLink(null)}
                   className="relative cursor-pointer group"
                 >
-                  <motion.span 
-                    className="inline-block hover:text-orange-500 transition-colors"
+                  <motion.span
+                    className="inline-block font-inter text-gray-400 group-hover:text-orange-500 transition-colors"
                     whileHover={{ x: 5 }}
                   >
                     {link}
                   </motion.span>
-                  {hoveredLink === `company-${index}` && (
+                  {/* {hoveredLink === `company-${index}` && (
                     <motion.span
                       layoutId="highlight"
                       className="absolute -inset-x-4 -inset-y-2 bg-orange-500/10 rounded-lg z-0"
@@ -403,7 +403,7 @@ const Footer = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     />
-                  )}
+                  )} */}
                 </motion.li>
               ))}
             </ul>
@@ -417,9 +417,9 @@ const Footer = () => {
             transition={{ delay: 0.4 }}
             className="space-y-6"
           >
-            <h4 className="text-white font-semibold">Contact Us</h4>
-            <div className="space-y-4">
-              <motion.a 
+            <h4 className="text-white font-semibold font-outfit tracking-wide">Contact Us</h4>
+            <div className="space-y-4 font-inter text-gray-400">
+              <motion.a
                 href="tel:+1234567890"
                 className="flex items-center space-x-3 hover:text-orange-500 transition-colors group"
                 whileHover={{ x: 5 }}
@@ -427,7 +427,7 @@ const Footer = () => {
                 <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 <span>+91 123 456 7890</span>
               </motion.a>
-              <motion.a 
+              <motion.a
                 href="mailto:info@example.com"
                 className="flex items-center space-x-3 hover:text-orange-500 transition-colors group"
                 whileHover={{ x: 5 }}
@@ -435,7 +435,7 @@ const Footer = () => {
                 <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>info@shreebhargava.com</span>
               </motion.a>
-              <motion.div 
+              <motion.div
                 className="flex items-center space-x-3 group"
                 whileHover={{ x: 5 }}
               >
@@ -454,7 +454,7 @@ const Footer = () => {
                 <motion.a
                   key={index}
                   href="#"
-                  whileHover={{ 
+                  whileHover={{
                     y: -5,
                     backgroundColor: social.color,
                     transition: { duration: 0.2 }
@@ -472,7 +472,7 @@ const Footer = () => {
                 </motion.a>
               ))}
             </div>
-            <motion.p 
+            <motion.p
               className="text-sm"
               whileHover={{ scale: 1.02 }}
             >
