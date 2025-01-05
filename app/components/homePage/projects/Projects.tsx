@@ -7,11 +7,9 @@ import HeroGridPattern from '../hero/HeroGridPattern';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import ProjectCard from './ProjectCard';
 import { projects } from './ProjectArray';
 import ProjectPreview from './ProjectPreview';
-import ProjectShowcase from './ProjectShowcase';
 
 const ProjectsSection = () => {
     const [hoveredId, setHoveredId] = useState(null);
@@ -43,7 +41,7 @@ const ProjectsSection = () => {
                 scrollTrigger: {
                     trigger: textRef.current,
                     start: "top center",
-                    end: "+=40%",
+                    end: "+=50%",
                     scrub: true,
                     toggleActions: "play none none reverse",
                     pin: true,
@@ -111,7 +109,7 @@ const ProjectsSection = () => {
             <motion.h1
                 // variants={textAnimation}
                 ref={textRef}
-                className="absolute md:block hidden top-40 left-[-0.15em] text-[12vw] font-extrabold leading-[0.72] text-white opacity-10 pointer-events-none z-0 uppercase"
+                className="absolute md:block hidden top-40 left-4 text-[12vw] font-extrabold leading-[0.72] text-white opacity-10 pointer-events-none z-0 uppercase"
                 style={{
                     fontFamily: "korolev-condensed, sans-serif",
                     transform: "translate3d(0px, 27px, 0px)",

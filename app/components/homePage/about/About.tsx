@@ -53,7 +53,11 @@ const AboutPage = () => {
 
 
     return (
-        <div className="bg-white/80 relative py-20 md:py-20 lg:py-40 h-auto overflow-hidden w-full">
+        <motion.div 
+        initial="initial"
+                    whileInView="visible"
+                    variants={containerVariants}
+        className="bg-white/80 relative py-20 md:py-20 lg:py-40 h-auto overflow-hidden w-full">
 
             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-[0] opacity-30'>
 
@@ -407,7 +411,7 @@ const AboutPage = () => {
                     </motion.button>
                 </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

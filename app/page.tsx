@@ -9,6 +9,7 @@ import ProjectsSection from "./components/homePage/projects/Projects";
 import AboutPage from "./components/homePage/about/About";
 import ContactBanner from "./components/homePage/contact/ContactBanner";
 import ContactSection from "./components/homePage/contact/ContactSection";
+import TrackRecord from "./components/homePage/records/TrackRecord";
 
 export default function Home() {
   return (
@@ -18,13 +19,17 @@ export default function Home() {
 
       <ServicesSection />
 
-      <Hero />
+      <TrackRecord />
 
       <ProjectsSection />
 
       <AboutPage />
 
       <ContactBanner />
+
+      <Hero />
+
+      
 
       <ContactSection />
     </div>

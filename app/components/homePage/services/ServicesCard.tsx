@@ -46,6 +46,7 @@ const ServicesCard = ({ service, index }: { service: Service; index: number }) =
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top center",
+                    end: "+=100",
                     scrub: 1
                 }
             }
