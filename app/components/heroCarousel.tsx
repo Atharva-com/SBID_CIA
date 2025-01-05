@@ -1,13 +1,55 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Image from "next/image";
 
-const images = [
-    "https://plus.unsplash.com/premium_photo-1661913412680-c274b6fea096?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://plus.unsplash.com/premium_photo-1661872731017-f16222b794cf?q=80&w=1483&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://plus.unsplash.com/premium_photo-1661964060727-8d43315efc90?q=80&w=1533&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+const images = Array.from({ length: 20 }, (_, i) => `https://picsum.photos/1600/900?random=${i + 1}`);
+
+// Transition groups with advanced animations
+const transitionVariants = [
+    {
+        // Paper Scroll Effect
+        initial: { y: "-100%", opacity: 0 },
+        animate: { y: "0%", opacity: 1 },
+        exit: { y: "100%", opacity: 0 },
+    },
+    {
+        // Crushing Effect
+        initial: { scaleY: 0.1, opacity: 0 },
+        animate: { scaleY: 1, opacity: 1 },
+        exit: { scaleY: 0.1, opacity: 0 },
+    },
+    {
+        // Door Opening Effect
+        initial: { clipPath: "inset(0 50% 0 50%)", opacity: 0 },
+        animate: { clipPath: "inset(0 0% 0 0%)", opacity: 1 },
+        exit: { clipPath: "inset(0 50% 0 50%)", opacity: 0 },
+    },
+    {
+        // Circle Reveal Effect
+        initial: { clipPath: "circle(0% at 50% 50%)", opacity: 0 },
+        animate: { clipPath: "circle(100% at 50% 50%)", opacity: 1 },
+        exit: { clipPath: "circle(0% at 50% 50%)", opacity: 0 },
+    },
+    {
+        // Perspective Rotate Y Effect
+        initial: { rotateY: -90, opacity: 0, perspective: 1000 },
+        animate: { rotateY: 0, opacity: 1 },
+        exit: { rotateY: 90, opacity: 0 },
+    },
+    {
+        // Rotate Z Effect
+        initial: { scale: 1.5, opacity: 0, rotateZ: 45 },
+        animate: { scale: 1, opacity: 1, rotateZ: 0 },
+        exit: { scale: 0.5, opacity: 0, rotateZ: -45 },
+    },
+    {
+        // Slide in/out X Effect
+        initial: { x: "-100%", opacity: 0 },
+        animate: { x: "0%", opacity: 1 },
+        exit: { x: "100%", opacity: 0 },
+    },
 ];
 
 const FullscreenCarousel = () => {
@@ -32,7 +74,6 @@ const FullscreenCarousel = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-
             nextSlide();
         }, 10000);
         return () => clearInterval(interval);
@@ -46,23 +87,29 @@ const FullscreenCarousel = () => {
         setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
     };
 
+    const getTransitionGroup = () => {
+        // Cycle through transition effects
+        const groupIndex = currentIndex % transitionVariants.length;
+        return transitionVariants[groupIndex];
+    };
 
+    const transition = getTransitionGroup();
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-black">
+        <div className="relative w-full h-screen overflow-hidden">
             {/* Slides */}
             <AnimatePresence>
-
                 <motion.div
                     key={currentIndex}
                     className="absolute inset-0 flex items-center justify-center"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.8, opacity: 0 }}
-                    transition={{ duration: 1 }}
+                    initial={transition.initial}
+                    animate={transition.animate}
+                    exit={transition.exit}
+                    transition={{ duration: 1.5 }}
                 >
+
                     {/* Image with radial fade */}
-                    <div
+                    <motion.div
                         className="absolute inset-0"
                         style={{
                             maskImage:
@@ -71,6 +118,7 @@ const FullscreenCarousel = () => {
                                 "radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0.2) 100%)",
                         }}
                     >
+                        {/* Image */}
                         <Image
                             src={images[currentIndex]}
                             alt={`Slide ${currentIndex + 1}`}
@@ -78,9 +126,8 @@ const FullscreenCarousel = () => {
                             objectFit="cover"
                             className="absolute inset-0 opacity-90"
                         />
-                                  
 
-                    </div>
+                    </motion.div>
 
                     {/* Doughnut Effect */}
 
@@ -92,7 +139,7 @@ const FullscreenCarousel = () => {
                             height: "100%",
                             pointerEvents: "none",
                         }}
-                        
+
                         viewBox="0 0 1358 608"
                     >
                         {/* Base circle */}
@@ -103,7 +150,7 @@ const FullscreenCarousel = () => {
                             initial={{ strokeDashoffset: 0 }}
                             animate={{ strokeDashoffset: circumference, }}
                             transition={{ duration: 1.5, }}
-                            stroke="rgba(255, 255, 255, 0.2)" 
+                            stroke="rgba(255, 255, 255, 0.2)"
                             fill="rgba(0,0,0,0)"
                             strokeWidth="2px"
                         ></motion.circle>
@@ -129,7 +176,7 @@ const FullscreenCarousel = () => {
                                 strokeDashoffset: circumference * (1 - previousProgress),
                             }}
                             transition={{
-                                duration: 1.5, 
+                                duration: 1.5,
                                 delay: 2,
                             }}
                         ></motion.circle>
@@ -150,6 +197,15 @@ const FullscreenCarousel = () => {
                 </motion.div>
 
             </AnimatePresence>
+
+
+
+            {/* Slide Numbers */}
+            <div className="absolute bottom-[40%] md:bottom-5 right-[43%] md:right-10 font-mono text-[#fff9] text-lg lg:text-sm">
+                <p>
+                    {currentIndex + 1} — {totalSlides}
+                </p>
+            </div>
 
             {/* Slide Numbers */}
             <div className="absolute bottom-[40%] md:bottom-5 right-[43%] md:right-10 font-mono text-[#fff9] text-lg lg:text-sm">
@@ -209,7 +265,7 @@ const FullscreenCarousel = () => {
                 </div>
 
             </motion.div>
-
+            
         </div>
     );
 };
